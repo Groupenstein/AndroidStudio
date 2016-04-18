@@ -1,0 +1,43 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="0dip" android:layout_gravity="top"
+    >
+    <TableRow>
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:paddingTop="0dip" android:layout_gravity="top"
+            >
+            <TableRow>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_OrgName"
+                    android:textSize="8pt"
+                    android:textStyle="bold"
+                    android:paddingBottom="2dip"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#2a6496"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/txt_OrgDescription"
+                    android:textSize="6pt"
+                    android:paddingBottom="5dip"
+                    />
+            </TableRow>
+
+        </TableLayout>
+    </TableRow>
+
+</TableLayout>

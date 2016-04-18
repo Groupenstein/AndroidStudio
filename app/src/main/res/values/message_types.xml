@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="message_types">
+        <item>Alert</item>
+        <item>Notice</item>
+        <item>News</item>
+        <item>Informational</item>
+    </string-array>
+</resources>

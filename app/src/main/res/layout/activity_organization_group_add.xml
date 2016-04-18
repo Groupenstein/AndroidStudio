@@ -1,0 +1,57 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="0dip" android:layout_gravity="top"
+    >
+    <TableRow>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            >
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Join"
+                android:id="@+id/buttonJoin"
+                android:padding="6dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/primarybutton" />
+        </LinearLayout>
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:paddingTop="10dip" android:layout_gravity="top"
+            >
+            <TableRow>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/textGroupName"
+                    android:textSize="8pt"
+                    android:paddingBottom="3dip"
+                    />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:gravity="center_vertical"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/textGroupDescription"
+                    android:textSize="6pt"
+                    android:paddingBottom="7dip"
+                    />
+            </TableRow>
+
+        </TableLayout>
+    </TableRow>
+
+</TableLayout>

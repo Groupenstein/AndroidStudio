@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.groupenstein.groupenstein"
+    android:versionCode="4"
+    android:versionName="1.3"
+    >
+
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+ To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies
+    -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" /> <!-- To retrieve the account name (email) as part of sign-in: -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE" />
+
+    <permission
+        android:name="com.groupenstein.groupenstein.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.groupenstein.groupensteinE.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/groupensteinlogo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.groupenstein.groupenstein.GroupViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.LoginActivity"
+            android:label="Login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.ManageGroupActivity"
+            android:label="Remove Groups">
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.SearchActivity"
+            android:label="Search Groups">
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.AdministrationActivity"
+            android:label="Administration">
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.OrganizationGroupViewActivity"
+            android:label="Group View"
+            >
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.CreateAccountActivity"
+            android:label="Create Account"
+            >
+        </activity>
+        <activity
+            android:name="com.groupenstein.groupenstein.SendGroupMessage"
+            android:label="@string/title_activity_send_group_message"
+            >
+        </activity>
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.groupenstein.groupenstein.gcm" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GcmIntentService" />
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+</manifest>
+
