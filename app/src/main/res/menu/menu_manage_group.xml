@@ -1,6 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.groupenstein.groupenstein.ManageGroupActivity">
-    <item android:id="@+id/action_back" android:title="@string/action_home_text"
-        android:icon="@drawable/ic_action_back" android:showAsAction="always" />
-</menu>

@@ -1,13 +1,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".GroupView">
-    <item android:id="@+id/action_refresh" android:title="@string/action_refresh_text"
-        android:icon="@drawable/ic_action_refresh" android:showAsAction="always" />
-    <item android:id="@+id/action_search" android:title="@string/action_search_text"
-        android:icon="@drawable/ic_action_search" android:showAsAction="always" />
-    <item android:id="@+id/action_manage_groups" android:title="@string/action_manage_groups"
-        android:orderInCategory="100" android:showAsAction="never" />
-    <item android:id="@+id/action_sign_out" android:title="@string/action_sign_out"
-        android:orderInCategory="100" android:showAsAction="never" />
-    <item android:id="@+id/action_full_site" android:title="@string/action_full_site"
-        android:orderInCategory="100" android:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".GroupView">
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/ic_refresh_white_24dp"
+        android:showAsAction="always"
+        android:title="@string/action_refresh_text" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:showAsAction="always"
+        android:title="@string/action_search_text" />
+    <item
+        android:id="@+id/action_manage_groups"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_manage_groups" />
+    <item
+        android:id="@+id/action_sign_out"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_sign_out" />
+    <item
+        android:id="@+id/action_full_site"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_full_site" />
 </menu>

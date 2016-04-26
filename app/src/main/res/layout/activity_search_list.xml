@@ -1,40 +1,43 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="0dip" android:layout_gravity="top"
-    >
+    android:layout_gravity="top"
+    android:paddingTop="0dip">
+
     <TableRow>
 
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="0dip"
-            android:layout_weight="1"
             android:layout_height="fill_parent"
-            android:paddingTop="0dip" android:layout_gravity="top"
-            >
+            android:layout_gravity="top"
+            android:layout_weight="1"
+            android:paddingTop="0dip">
+
             <TableRow>
+
                 <TextView
-                    android:layout_width="fill_parent"
-                    android:gravity="center_vertical"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
                     android:id="@+id/txt_OrgName"
-                    android:textSize="8pt"
-                    android:textStyle="bold"
-                    android:paddingBottom="2dip"
-                    android:layout_marginTop="10dp"
-                    android:textColor="#2a6496"
-                    />
-            </TableRow>
-            <TableRow>
-                <TextView
                     android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
+                    android:paddingBottom="2dip"
+                    android:textColor="#2a6496"
+                    android:textSize="8pt"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/txt_OrgDescription"
+                    android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:id="@+id/txt_OrgDescription"
-                    android:textSize="6pt"
+                    android:gravity="center_vertical"
                     android:paddingBottom="5dip"
-                    />
+                    android:textSize="6pt" />
             </TableRow>
 
         </TableLayout>

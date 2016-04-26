@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.groupenstein.groupenstein"
     android:versionCode="4"
-    android:versionName="1.3"
-    >
+    android:versionName="1.3">
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -33,12 +32,13 @@
         android:allowBackup="true"
         android:icon="@drawable/groupensteinlogo"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
-            android:name="com.groupenstein.groupenstein.GroupViewActivity"
+            android:name=".activities.GroupViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,9 +46,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.groupenstein.groupenstein.LoginActivity"
+            android:name=".activities.LoginActivity"
             android:label="Login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -56,42 +58,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.groupenstein.groupenstein.ManageGroupActivity"
-            android:label="Remove Groups">
-        </activity>
+            android:name=".activities.ManageGroupActivity"
+            android:label="Remove Groups"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"  />
         <activity
-            android:name="com.groupenstein.groupenstein.SearchActivity"
-            android:label="Search Groups">
-        </activity>
+            android:name=".activities.SearchActivity"
+            android:label="Search Groups"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"  />
         <activity
-            android:name="com.groupenstein.groupenstein.AdministrationActivity"
-            android:label="Administration">
-        </activity>
+            android:name=".activities.AdministrationActivity"
+            android:label="Administration"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.groupenstein.groupenstein.OrganizationGroupViewActivity"
+            android:name=".activities.OrganizationGroupViewActivity"
             android:label="Group View"
-            >
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.groupenstein.groupenstein.CreateAccountActivity"
+            android:name=".activities.CreateAccountActivity"
             android:label="Create Account"
-            >
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
         <activity
-            android:name="com.groupenstein.groupenstein.SendGroupMessage"
+            android:name=".activities.SendGroupMessage"
             android:label="@string/title_activity_send_group_message"
-            >
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+
         <receiver
-            android:name=".GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:name=".services.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <category android:name="com.groupenstein.groupenstein.gcm" />
             </intent-filter>
         </receiver>
-        <service android:name=".GcmIntentService" />
-        <meta-data android:name="com.google.android.gms.version"
+        <service android:name=".services.GcmIntentService" />
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
 </manifest>
