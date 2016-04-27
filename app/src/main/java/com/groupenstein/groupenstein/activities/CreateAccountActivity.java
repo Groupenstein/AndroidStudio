@@ -19,9 +19,9 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.models.UserTokenModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.util.HashMap;
 import java.util.Map;

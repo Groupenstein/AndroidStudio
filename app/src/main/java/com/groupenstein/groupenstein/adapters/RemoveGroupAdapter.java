@@ -13,12 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.activities.GroupViewActivity;
 import com.groupenstein.groupenstein.activities.ManageGroupActivity;
 import com.groupenstein.groupenstein.models.UserGroupModel;
 import com.groupenstein.groupenstein.models.UserMobileModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.util.ArrayList;
 import java.util.HashMap;

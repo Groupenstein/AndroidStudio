@@ -4,11 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -21,11 +18,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.adapters.SearchAdapter;
 import com.groupenstein.groupenstein.models.SearchResultsDetailModel;
 import com.groupenstein.groupenstein.models.SearchResultsModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

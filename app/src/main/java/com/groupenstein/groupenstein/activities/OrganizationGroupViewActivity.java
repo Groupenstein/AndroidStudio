@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.adapters.AddGroupAdapter;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
+import com.groupenstein.groupenstein.adapters.AddGroupAdapter;
 import com.groupenstein.groupenstein.models.GroupDetailModel;
 import com.groupenstein.groupenstein.models.OrganizationModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

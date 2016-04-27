@@ -12,8 +12,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -27,10 +25,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.models.OrganizationModel;
 import com.groupenstein.groupenstein.models.ValidationModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

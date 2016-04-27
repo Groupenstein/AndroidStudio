@@ -79,9 +79,9 @@
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:textColor="@color/white"
+                    android:background="@drawable/count_circle"
                     android:gravity="center"
-                    android:background="@drawable/count_circle"/>
+                    android:textColor="@color/white" />
 
                 <View
                     android:id="@+id/tag_line"
@@ -94,12 +94,12 @@
                     android:id="@+id/recent_no_messages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No Recent Messages"
-                    android:textSize="18sp"
                     android:layout_below="@+id/tag_line"
                     android:layout_margin="16dp"
                     android:gravity="center"
-                    android:visibility="gone"/>
+                    android:text="No Recent Messages"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/recent_list"
@@ -140,9 +140,9 @@
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:textColor="@color/white"
+                    android:background="@drawable/count_circle"
                     android:gravity="center"
-                    android:background="@drawable/count_circle"/>
+                    android:textColor="@color/white" />
 
                 <View
                     android:id="@+id/up_tag_line"
@@ -155,12 +155,12 @@
                     android:id="@+id/upcoming_no_messages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No Upcoming Events"
-                    android:textSize="18sp"
-                    android:gravity="center"
                     android:layout_below="@+id/up_tag_line"
                     android:layout_margin="16dp"
-                    android:visibility="gone"/>
+                    android:gravity="center"
+                    android:text="No Upcoming Events"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/upcoming_list"
@@ -203,11 +203,11 @@
                     android:id="@+id/your_no_messages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No messages for this group"
-                    android:gravity="center"
-                    android:textSize="18sp"
                     android:layout_margin="16dp"
-                    android:visibility="gone"/>
+                    android:gravity="center"
+                    android:text="No messages for this group"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/message_list"
@@ -249,11 +249,11 @@
                     android:id="@+id/your_events_no_messages"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="No events for this group"
-                    android:gravity="center"
-                    android:textSize="18sp"
                     android:layout_margin="16dp"
-                    android:visibility="gone"/>
+                    android:gravity="center"
+                    android:text="No events for this group"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/events_list"
@@ -270,8 +270,8 @@
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/events_card"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
             android:background="@drawable/primarybutton"
             android:text="New Message"

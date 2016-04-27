@@ -1,13 +1,5 @@
 package com.groupenstein.groupenstein.activities;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -17,8 +9,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -37,13 +29,21 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.models.GroupEventModel;
 import com.groupenstein.groupenstein.models.GroupMessageModel;
 import com.groupenstein.groupenstein.models.UserGroupModel;
 import com.groupenstein.groupenstein.models.UserMobileModel;
 import com.groupenstein.groupenstein.models.ValidationModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
+
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 
 public class GroupViewActivity extends Activity {
@@ -266,7 +266,6 @@ public class GroupViewActivity extends Activity {
         private LinearLayout recentList, upcomingList, messageList, eventsList;
         private TextView itemCircle, upcomingItemCircle;
         private TextView recentNoMessages, upcomingNoEvents, yourNoMessages, eventsNoMessages;
-        private String messageDate, eventDate;
 
         private static final String ARG_SECTION_NUMBER = "section_number";
         String groupDetail;
@@ -394,7 +393,6 @@ public class GroupViewActivity extends Activity {
                     if (currentGroup.GroupMessages.size() > 0) {
                         itemCircle.setText(String.valueOf(currentGroup.GroupMessages.size()));
                         for (GroupMessageModel messageModel : currentGroup.GroupMessages) {
-                            Log.d("<><>", "Message:");
                             StringBuilder sb = new StringBuilder();
                             for (String s : messageModel.GroupName.split(" ")) {
                                 sb.append(s.charAt(0));
@@ -428,6 +426,7 @@ public class GroupViewActivity extends Activity {
                         }
                     } else {
                         recentNoMessages.setVisibility(View.VISIBLE);
+                        itemCircle.setText("0");
                     }
 
                     if (currentGroup.GroupEvents.size() > 0) {
@@ -467,6 +466,7 @@ public class GroupViewActivity extends Activity {
 
                     } else {
                         upcomingNoEvents.setVisibility(View.VISIBLE);
+                        upcomingItemCircle.setText("0");
                     }
 
                 } else {
@@ -485,9 +485,12 @@ public class GroupViewActivity extends Activity {
 
                     if (currentGroup.GroupMessages.size() > 0) {
                         itemCircle.setText(String.valueOf(currentGroup.GroupMessages.size()));
+                        DateFormat circleDateFormat = new SimpleDateFormat("MMM");
+                        DateFormat dateFormat = new SimpleDateFormat("MMM dd, E");
+                        String previousDate = circleDateFormat.format(LoadDate(currentGroup.GroupMessages.get(0).DateAdded));
+                        boolean firstRun = true;
                         for (GroupMessageModel messageModel : currentGroup.GroupMessages) {
-                            DateFormat circleDateFormat = new SimpleDateFormat("MMM");
-                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E");
+
 
                             LayoutInflater layoutInflater =
                                     (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -499,7 +502,13 @@ public class GroupViewActivity extends Activity {
 
                             descriptionText.setText(messageModel.Message);
                             titleText.setText(messageModel.Title);
-                            circleTextView.setText(circleDateFormat.format(LoadDate(messageModel.DateAdded)));
+                            if (firstRun || !previousDate.equals(circleDateFormat.format(LoadDate(messageModel.DateAdded)))) {
+                                circleTextView.setText(circleDateFormat.format(LoadDate(messageModel.DateAdded)));
+                                previousDate = circleDateFormat.format(LoadDate(messageModel.DateAdded));
+                                firstRun = false;
+                            } else {
+                                circleTextView.setVisibility(View.INVISIBLE);
+                            }
                             dateText.setText(dateFormat.format(LoadDate(messageModel.DateAdded)));
                             messageList.addView(addView);
                         }
@@ -508,10 +517,11 @@ public class GroupViewActivity extends Activity {
                     }
 
                     if (currentGroup.GroupEvents.size() > 0) {
+                        DateFormat circleDateFormat = new SimpleDateFormat("MMM");
+                        DateFormat dateFormat = new SimpleDateFormat("MMM dd, E, hh:mm a");
+                        String previousDate = circleDateFormat.format(LoadDate(currentGroup.GroupEvents.get(0).EventDate));
+                        boolean firstRun = true;
                         for (GroupEventModel eventModel : currentGroup.GroupEvents) {
-
-                            DateFormat circleDateFormat = new SimpleDateFormat("MMM");
-                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E, hh:mm a");
 
                             LayoutInflater layoutInflater =
                                     (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -523,7 +533,13 @@ public class GroupViewActivity extends Activity {
 
                             descriptionText.setText(eventModel.Description);
                             titleText.setText(eventModel.Name);
-                            circleTextView.setText(circleDateFormat.format(LoadDate(eventModel.EventDate)));
+                            if (firstRun || !previousDate.equals(circleDateFormat.format(LoadDate(eventModel.EventDate)))) {
+                                circleTextView.setText(circleDateFormat.format(LoadDate(eventModel.EventDate)));
+                                previousDate = circleDateFormat.format(LoadDate(eventModel.EventDate));
+                                firstRun = false;
+                            } else {
+                                circleTextView.setVisibility(View.INVISIBLE);
+                            }
                             dateText.setText(dateFormat.format(LoadDate(eventModel.EventDate)));
                             eventsList.addView(addView);
                         }

@@ -88,6 +88,7 @@
             android:background="@drawable/primarybutton"
             android:onClick="showDatePickerDialog"
             android:padding="5dp"
+            android:textColor="@color/white"
             android:text="Select" />
 
         <TextView
@@ -130,6 +131,7 @@
             android:background="@drawable/primarybutton"
             android:onClick="showExpirationDatePickerDialog"
             android:padding="5dp"
+            android:textColor="@color/white"
             android:text="Select" />
 
         <Button
@@ -143,6 +145,7 @@
             android:layout_marginTop="38dp"
             android:background="@drawable/primarybutton"
             android:padding="15dp"
+            android:textColor="@color/white"
             android:text="Send Message" />
 
         <TextView
@@ -155,7 +158,7 @@
             android:linksClickable="true"
             android:padding="15dp"
             android:text="Cancel"
-            android:textColor="#2a6496" />
+            android:textColor="@color/circle_blue" />
 
 
         <Spinner

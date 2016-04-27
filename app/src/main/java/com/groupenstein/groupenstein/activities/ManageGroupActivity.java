@@ -4,19 +4,17 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.groupenstein.groupenstein.services.GroupensteinConnect;
 import com.groupenstein.groupenstein.R;
 import com.groupenstein.groupenstein.adapters.RemoveGroupAdapter;
 import com.groupenstein.groupenstein.models.UserGroupModel;
 import com.groupenstein.groupenstein.models.UserMobileModel;
+import com.groupenstein.groupenstein.services.GroupensteinConnect;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
