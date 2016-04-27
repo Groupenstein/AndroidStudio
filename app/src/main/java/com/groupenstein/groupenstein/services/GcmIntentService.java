@@ -19,57 +19,65 @@ import com.groupenstein.groupenstein.activities.GroupViewActivity;
  * Created by Brett on 12/28/2014.
  */
 
-public class GcmIntentService extends IntentService
-{     public static final int NOTIFICATION_ID = 1;
+public class GcmIntentService extends IntentService {
+    public static final int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     private final static String TAG = "GcmIntentService";
-    public GcmIntentService() {
-    super("GcmIntentService");
-}     @Override
-      protected void onHandleIntent(Intent intent) {
-    Bundle extras = intent.getExtras();
-    Log.d(TAG, "Notification Data Json :" + extras.getString("message"));
 
-    GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
-    String messageType = gcm.getMessageType(intent);          if (!extras.isEmpty()) {          if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
-            .equals(messageType)) {
-        sendNotification("Send error: " + extras.toString(),"0");
-    } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
-            .equals(messageType)) {
-        sendNotification("Deleted messages on server: "
-                + extras.toString(),"0");          // If it's a regular GCM message, do some work.
-    } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
-            .equals(messageType)) {
-        // This loop represents the service doing some work.
-        for (int i = 0; i < 5; i++) {
-            Log.d(TAG," Working... " + (i + 1) + "/5 @ "
-                    + SystemClock.elapsedRealtime());               try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-            }
-        }
-        Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
-        sendNotification(extras.getString("message"), extras.getString("collapse_key"));
+    public GcmIntentService() {
+        super("GcmIntentService");
     }
-    }        // Release the wake lock provided by the WakefulBroadcastReceiver.
-    GcmBroadcastReceiver.completeWakefulIntent(intent);
-}     // Put the message into a notification and post it.
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        Log.d(TAG, "Notification Data Json :" + extras.getString("message"));
+
+        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+        String messageType = gcm.getMessageType(intent);
+        if (!extras.isEmpty()) {
+            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
+                    .equals(messageType)) {
+                sendNotification("Send error: " + extras.toString(), "0");
+            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
+                    .equals(messageType)) {
+                sendNotification("Deleted messages on server: "
+                        + extras.toString(), "0");          // If it's a regular GCM message, do some work.
+            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
+                    .equals(messageType)) {
+                // This loop represents the service doing some work.
+                for (int i = 0; i < 5; i++) {
+                    Log.d(TAG, " Working... " + (i + 1) + "/5 @ "
+                            + SystemClock.elapsedRealtime());
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                    }
+                }
+                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
+                sendNotification(extras.getString("message"), extras.getString("collapse_key"));
+            }
+        }        // Release the wake lock provided by the WakefulBroadcastReceiver.
+        GcmBroadcastReceiver.completeWakefulIntent(intent);
+    }     // Put the message into a notification and post it.
+
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg, String collapseKey) {
         mNotificationManager = (NotificationManager) this
-            .getSystemService(Context.NOTIFICATION_SERVICE);
+                .getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, Integer.parseInt(collapseKey), new Intent(this, GroupViewActivity.class), 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(          this)
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.groupensteinlogo)
                 .setContentTitle("Groupenstein Alert")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg)
                 .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
 
-        mBuilder.setContentIntent(contentIntent);          mNotificationManager.notify(Integer.parseInt(collapseKey), mBuilder.build());
+        mBuilder.setContentIntent(contentIntent);
+        mNotificationManager.notify(Integer.parseInt(collapseKey), mBuilder.build());
     }
 }
 

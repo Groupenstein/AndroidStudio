@@ -3,9 +3,7 @@ package com.groupenstein.groupenstein.activities;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -22,16 +20,15 @@ import android.os.AsyncTask;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -263,6 +260,14 @@ public class GroupViewActivity extends Activity {
          * The fragment argument representing the section number for this
          * fragment.
          */
+
+        private RelativeLayout topTextView;
+        private CardView recentCard, upcomingCard, messageCard, eventsCard;
+        private LinearLayout recentList, upcomingList, messageList, eventsList;
+        private TextView itemCircle, upcomingItemCircle;
+        private TextView recentNoMessages, upcomingNoEvents, yourNoMessages, eventsNoMessages;
+        private String messageDate, eventDate;
+
         private static final String ARG_SECTION_NUMBER = "section_number";
         String groupDetail;
         String groupName;
@@ -292,6 +297,25 @@ public class GroupViewActivity extends Activity {
 
             View rootView = inflater.inflate(R.layout.fragment_group_view, container, false);
 
+            topTextView = (RelativeLayout) rootView.findViewById(R.id.text_layout);
+            messageCard = (CardView) rootView.findViewById(R.id.messages_card);
+            recentCard = (CardView) rootView.findViewById(R.id.recent_card);
+            upcomingCard = (CardView) rootView.findViewById(R.id.upcoming_card);
+            eventsCard = (CardView) rootView.findViewById(R.id.events_card);
+
+            messageList = (LinearLayout) rootView.findViewById(R.id.message_list);
+            recentList = (LinearLayout) rootView.findViewById(R.id.recent_list);
+            upcomingList = (LinearLayout) rootView.findViewById(R.id.upcoming_list);
+            eventsList = (LinearLayout) rootView.findViewById(R.id.events_list);
+
+            itemCircle = (TextView) rootView.findViewById(R.id.message_count);
+            upcomingItemCircle = (TextView) rootView.findViewById(R.id.upcoming_message_count);
+
+            recentNoMessages = (TextView) rootView.findViewById(R.id.recent_no_messages);
+            upcomingNoEvents = (TextView) rootView.findViewById(R.id.upcoming_no_messages);
+            yourNoMessages = (TextView) rootView.findViewById(R.id.your_no_messages);
+            eventsNoMessages = (TextView) rootView.findViewById(R.id.your_events_no_messages);
+
             Bundle args = getArguments();
             int arrayIndex = args.getInt(ARG_SECTION_NUMBER);
 
@@ -307,10 +331,6 @@ public class GroupViewActivity extends Activity {
             } else {
                 LoadView(arrayIndex);
             }
-
-            WebView webView = (WebView) rootView.findViewById(R.id.webMsgAndEvents);
-            webView.loadData(groupDetail, "text/html", "UTF-8");
-            webView.getSettings().setJavaScriptEnabled(true);
 
             TextView groupNameText = (TextView) rootView.findViewById(R.id.txtGroupName);
             groupNameText.setText(groupName);
@@ -331,8 +351,6 @@ public class GroupViewActivity extends Activity {
                 createMessage.setOnClickListener(new CreateMessageClickListener(arrayIndex));
             } else {
                 createMessage.setVisibility(View.GONE);
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) groupNameText.getLayoutParams();
-                params.addRule(RelativeLayout.BELOW, R.id.section_label);
             }
 
            /* mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipecontainer);
@@ -367,143 +385,156 @@ public class GroupViewActivity extends Activity {
             if (userMobileModel.Groups.size() > 0) {
                 UserGroupModel currentGroup = userMobileModel.Groups.get(arrayIndex);
                 if (currentGroup.OrganizationId == -1) {
-                    groupName = "Recent Message and Upcoming Events";
+                    recentCard.setVisibility(View.VISIBLE);
+                    upcomingCard.setVisibility(View.VISIBLE);
+                    topTextView.setVisibility(View.GONE);
+                    messageCard.setVisibility(View.GONE);
+                    eventsCard.setVisibility(View.GONE);
+
+                    if (currentGroup.GroupMessages.size() > 0) {
+                        itemCircle.setText(String.valueOf(currentGroup.GroupMessages.size()));
+                        for (GroupMessageModel messageModel : currentGroup.GroupMessages) {
+                            Log.d("<><>", "Message:");
+                            StringBuilder sb = new StringBuilder();
+                            for (String s : messageModel.GroupName.split(" ")) {
+                                sb.append(s.charAt(0));
+                            }
+                            String groupNameAbbreviation = sb.toString();
+                            String circleText;
+                            if (groupNameAbbreviation.length() > 1) {
+                                circleText = groupNameAbbreviation.substring(0, 2);
+                            } else {
+                                circleText = groupNameAbbreviation.substring(0, 1);
+                            }
+
+                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E");
+
+                            LayoutInflater layoutInflater =
+                                    (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View addView = layoutInflater.inflate(R.layout.group_main_item_element_view, null);
+                            TextView nameText = (TextView) addView.findViewById(R.id.group_name);
+                            TextView dateText = (TextView) addView.findViewById(R.id.group_date);
+                            TextView descriptionText = (TextView) addView.findViewById(R.id.group_description);
+                            TextView titleText = (TextView) addView.findViewById(R.id.group_title);
+                            TextView circleTextView = (TextView) addView.findViewById(R.id.text_circle);
+
+                            nameText.setVisibility(View.VISIBLE);
+                            nameText.setText(messageModel.GroupName);
+                            descriptionText.setText(messageModel.Message);
+                            titleText.setText(messageModel.Title);
+                            circleTextView.setText(circleText);
+                            dateText.setText(dateFormat.format(LoadDate(messageModel.DateAdded)));
+                            recentList.addView(addView);
+                        }
+                    } else {
+                        recentNoMessages.setVisibility(View.VISIBLE);
+                    }
+
+                    if (currentGroup.GroupEvents.size() > 0) {
+                        for (GroupEventModel eventModel : currentGroup.GroupEvents) {
+                            upcomingItemCircle.setText(String.valueOf(currentGroup.GroupEvents.size()));
+                            StringBuilder sb = new StringBuilder();
+                            for (String s : eventModel.GroupName.split(" ")) {
+                                sb.append(s.charAt(0));
+                            }
+                            String groupNameAbbreviation = sb.toString();
+                            String circleText;
+                            if (groupNameAbbreviation.length() > 1) {
+                                circleText = groupNameAbbreviation.substring(0, 2);
+                            } else {
+                                circleText = groupNameAbbreviation.substring(0, 1);
+                            }
+
+                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E, hh:mm a");
+
+                            LayoutInflater layoutInflater =
+                                    (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View addView = layoutInflater.inflate(R.layout.group_main_item_element_view, null);
+                            TextView nameText = (TextView) addView.findViewById(R.id.group_name);
+                            TextView dateText = (TextView) addView.findViewById(R.id.group_date);
+                            TextView descriptionText = (TextView) addView.findViewById(R.id.group_description);
+                            TextView titleText = (TextView) addView.findViewById(R.id.group_title);
+                            TextView circleTextView = (TextView) addView.findViewById(R.id.text_circle);
+
+                            nameText.setVisibility(View.VISIBLE);
+                            nameText.setText(eventModel.GroupName);
+                            descriptionText.setText(eventModel.Description);
+                            titleText.setText(eventModel.Name);
+                            circleTextView.setText(circleText);
+                            dateText.setText(dateFormat.format(LoadDate(eventModel.EventDate)));
+                            upcomingList.addView(addView);
+                        }
+
+                    } else {
+                        upcomingNoEvents.setVisibility(View.VISIBLE);
+                    }
+
                 } else {
+                    recentCard.setVisibility(View.GONE);
+                    upcomingCard.setVisibility(View.GONE);
+                    topTextView.setVisibility(View.VISIBLE);
+                    messageCard.setVisibility(View.VISIBLE);
+                    eventsCard.setVisibility(View.VISIBLE);
+
                     groupName = currentGroup.GroupName;
                     StringBuilder sb = new StringBuilder();
                     for (String s : groupName.split(" ")) {
                         sb.append(s.charAt(0));
                     }
                     groupNameAbbreviation = sb.toString();
+
+                    if (currentGroup.GroupMessages.size() > 0) {
+                        itemCircle.setText(String.valueOf(currentGroup.GroupMessages.size()));
+                        for (GroupMessageModel messageModel : currentGroup.GroupMessages) {
+                            DateFormat circleDateFormat = new SimpleDateFormat("MMM");
+                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E");
+
+                            LayoutInflater layoutInflater =
+                                    (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View addView = layoutInflater.inflate(R.layout.group_item_element_view, null);
+                            TextView dateText = (TextView) addView.findViewById(R.id.group_date);
+                            TextView descriptionText = (TextView) addView.findViewById(R.id.group_description);
+                            TextView titleText = (TextView) addView.findViewById(R.id.group_title);
+                            TextView circleTextView = (TextView) addView.findViewById(R.id.text_circle);
+
+                            descriptionText.setText(messageModel.Message);
+                            titleText.setText(messageModel.Title);
+                            circleTextView.setText(circleDateFormat.format(LoadDate(messageModel.DateAdded)));
+                            dateText.setText(dateFormat.format(LoadDate(messageModel.DateAdded)));
+                            messageList.addView(addView);
+                        }
+                    } else {
+                        yourNoMessages.setVisibility(View.VISIBLE);
+                    }
+
+                    if (currentGroup.GroupEvents.size() > 0) {
+                        for (GroupEventModel eventModel : currentGroup.GroupEvents) {
+
+                            DateFormat circleDateFormat = new SimpleDateFormat("MMM");
+                            DateFormat dateFormat = new SimpleDateFormat("MMM dd, E, hh:mm a");
+
+                            LayoutInflater layoutInflater =
+                                    (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            final View addView = layoutInflater.inflate(R.layout.group_item_element_view, null);
+                            TextView dateText = (TextView) addView.findViewById(R.id.group_date);
+                            TextView descriptionText = (TextView) addView.findViewById(R.id.group_description);
+                            TextView titleText = (TextView) addView.findViewById(R.id.group_title);
+                            TextView circleTextView = (TextView) addView.findViewById(R.id.text_circle);
+
+                            descriptionText.setText(eventModel.Description);
+                            titleText.setText(eventModel.Name);
+                            circleTextView.setText(circleDateFormat.format(LoadDate(eventModel.EventDate)));
+                            dateText.setText(dateFormat.format(LoadDate(eventModel.EventDate)));
+                            eventsList.addView(addView);
+                        }
+
+                    } else {
+                        eventsNoMessages.setVisibility(View.VISIBLE);
+                    }
+
+
                 }
                 isMessageAdmin = currentGroup.IsGroupMessageAdmin;
-
-
-                StringBuilder sb = new StringBuilder();
-                Calendar calendar = new GregorianCalendar();
-
-                sb.append("<html><head><style>");
-                sb.append(".mg_group_details { display: inline-block; } ");
-                sb.append(".mg_group_detail_events { display: block; margin-bottom: 30px; width:90%; } ");
-                sb.append(".mg_group_detail_events h3 { text-align: center; background-color:#f8f8f8; margin-top: 20px;margin-bottom: 20px; padding-top:10px; padding-bottom:10px; } ");
-                sb.append(".mg_group_detail_event_month { text-align: center;margin-top: 10px;margin-bottom: 20px;border-bottom-color: rgba(136,136,135, 0.45);border-bottom: dotted;border-width: thin;}");
-                sb.append(".mg_group_detail_event_day_info{min-height: 60px; margin-bottom: 20px; padding-top: 10px;padding-bottom: 10px; background-color:#fff;}");
-                sb.append(".mg_group_detail_event_info{margin-left:55px; margin-bottom: 10px; background-color:#fff;}");
-
-                sb.append(".mg_group_detail_events_container{text-align: left;padding-bottom: 20px;padding-top: 10px;}");
-                sb.append(".mg_group_detail_container .mg_group_detail_event_day{text-align: center;padding-bottom: 7px;padding-left:5px;padding-right:5px;padding-top: 7px;color: #ffffff;margin-left:10px; width: 40px;display: inline-block;}");
-
-                sb.append(".btn {display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;font-weight: normal;line-height: 1.428571429;text-align: center;white-space: nowrap;vertical-align: middle;cursor: pointer;border: 1px solid transparent;border-radius: 4px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;-o-user-select: none;user-select: none;}");
-                sb.append(".btn:focus {outline: thin dotted #333;outline: 5px auto -webkit-focus-ring-color;outline-offset: -2px;}");
-                sb.append(".btn:hover,.btn:focus {color: #333333;text-decoration: none;}");
-                sb.append(".btn:active,.btn.active {background-image: none;outline: 0;-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);}");
-                sb.append(".btn.disabled,.btn[disabled],fieldset[disabled] .btn {pointer-events: none;cursor: not-allowed;opacity: 0.65;filter: alpha(opacity=65);-webkit-box-shadow: none;box-shadow: none;}");
-                sb.append(".btn-default {color: #333333;background-color: #ffffff;border-color: #cccccc;}");
-                sb.append(".btn-default:hover,.btn-default:focus,.btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default {color: #333333;background-color: #ebebeb;border-color: #adadad;}");
-                sb.append(".btn-default:active,.btn-default.active,.open .dropdown-toggle.btn-default {background-image: none;}");
-                sb.append(".btn-default.disabled,.btn-default[disabled],fieldset[disabled] .btn-default,.btn-default.disabled:hover,.btn-default[disabled]:hover,fieldset[disabled] .btn-default:hover,.btn-default.disabled:focus,.btn-default[disabled]:focus,fieldset[disabled] .btn-default:focus,.btn-default.disabled:active,.btn-default[disabled]:active,fieldset[disabled] .btn-default:active,.btn-default.disabled.active,.btn-default[disabled].active,fieldset[disabled] .btn-default.active {background-color: #ffffff;border-color: #cccccc;}");
-                sb.append(".btn-primary {color: #ffffff;background-color: #428bca;border-color: #357ebd;}");
-                sb.append(".btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary {color: #ffffff;background-color: #3276b1;border-color: #285e8e;}");
-                sb.append(".btn-primary:active,.btn-primary.active,.open .dropdown-toggle.btn-primary {background-image: none;}");
-                sb.append(".btn-primary.disabled,.btn-primary[disabled],fieldset[disabled] .btn-primary,.btn-primary.disabled:hover,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary:hover,.btn-primary.disabled:focus,.btn-primary[disabled]:focus,fieldset[disabled] .btn-primary:focus,.btn-primary.disabled:active,.btn-primary[disabled]:active,fieldset[disabled] .btn-primary:active,.btn-primary.disabled.active,.btn-primary[disabled].active,fieldset[disabled] .btn-primary.active {background-color: #428bca;border-color: #357ebd;}");
-                sb.append(".mg_float_left{float: left;}.mg_float_right{float: right;}.mg_font_18{font-size: 1.4em;}.mg_font_16{font-size: 1.2em;}.mg_font_14{font-size: 1em;}.mg_font_10{font-size: .8em;}.mg_font_8{font-size: .6em;}.mg_text_right{text-align: right;}.mg_text_center{text-align: center !important;}.mg_bold{font-weight: 700;}.mg_nobold{font-weight: normal;} .mg_high_priority {background-color: #fa1c1c !important; }");
-
-                sb.append("</style><head><body>");
-
-                sb.append("<div class='mg_group_detail_events'>");
-                sb.append("<h3>Group Messages</h3>");
-                if (currentGroup.GroupMessages.size() > 0) {
-                    for (GroupMessageModel msg : currentGroup.GroupMessages) {
-                        Log.d("<><>", "Message: Date " + msg.DateAdded + " Message: " + msg.Message  + " Title: " + msg.Title + " Name: " + msg.GroupName);
-                        calendar.setTime(LoadDate(msg.DateAdded));
-
-                        sb.append("<div class=\"mg_group_detail_event_day_info \">");
-                        if (msg.Priority < 3) {
-                            sb.append("<div class=\"mg_group_detail_event_day btn btn-primary mg_float_left mg_font_10 mg_high_priority \">");
-                        } else {
-                            sb.append("<div class=\"mg_group_detail_event_day btn btn-primary mg_float_left mg_font_10\">");
-                        }
-
-                        sb.append(new SimpleDateFormat("MMM").format(calendar.getTime()));
-                        sb.append("<br />");
-                        sb.append(new SimpleDateFormat("d").format(calendar.getTime()));
-                        sb.append("<br />");
-                        sb.append(new SimpleDateFormat("E").format(calendar.getTime()));
-
-                        sb.append("</div>");
-                        sb.append("<div class=\"mg_group_detail_event_info  \">");
-                        sb.append("<b>");
-                        if (currentGroup.OrganizationId == -1) {
-                            sb.append(msg.GroupName);
-                            sb.append("<br/>");
-                        }
-                        sb.append(msg.Title);
-                        sb.append("<br/> (" + new SimpleDateFormat("hh:mm a").format(calendar.getTime()) + ") ");
-                        sb.append("</b><br/>");
-                        sb.append(msg.Message);
-                        sb.append("</div>");
-                        sb.append("</div>");
-                    }
-                } else {
-                    sb.append("<div class='mg_bold mg_text_center'>");
-                    sb.append("No Recent Messages");
-                    sb.append("</div>");
-                }
-                sb.append("</div>");
-
-
-                sb.append("<div class=\"mg_group_detail_events\">");
-                sb.append("<h3>Group Events</h3>");
-                sb.append("<div class=\"mg_group_detail_events_container\">");
-                if (currentGroup.GroupEvents.size() > 0) {
-                    String lastMonth = "";
-
-                    for (GroupEventModel e : currentGroup.GroupEvents) {
-                        calendar.setTime(LoadDate(e.EventDate));
-                        String curMonth = new SimpleDateFormat("MM").format(calendar.getTime());
-                        if (!curMonth.equals(lastMonth)) {
-                            sb.append("<div class=\"mg_group_detail_event_month mg_font_18 mg_bold\">");
-                            sb.append(new SimpleDateFormat("MMM").format(calendar.getTime()));
-                            sb.append("</div>");
-                        }
-                        sb.append("<div class=\"mg_group_detail_event_day_info \">");
-                        sb.append("<div class=\"mg_group_detail_event_day btn btn-primary mg_float_left mg_font_10\">");
-                        sb.append(new SimpleDateFormat("MMM").format(calendar.getTime()));
-                        sb.append("<br />");
-                        sb.append(new SimpleDateFormat("dd").format(calendar.getTime()));
-                        sb.append("<br />");
-                        sb.append(new SimpleDateFormat("E").format(calendar.getTime()));
-
-                        sb.append("</div>");
-                        sb.append("<div class=\"mg_group_detail_event_info  \">");
-                        sb.append("<b>");
-                        if (currentGroup.OrganizationId == -1) {
-                            sb.append(e.GroupName);
-                            sb.append("<br/>");
-                        }
-                        sb.append(e.Name);
-                        if (!e.EventTime.equals("")) {
-                            sb.append(" (" + e.EventTime + ")");
-                        }
-                        sb.append("</b><br/>");
-                        sb.append(e.Description);
-                        sb.append("</div>");
-                        sb.append("</div>");
-
-                        lastMonth = curMonth;
-                    }
-                    sb.append("</div>");
-                } else {
-                    sb.append("<div class=\"mg_bold mg_text_center\">");
-                    sb.append("No Events Scheduled");
-                    sb.append("</div>");
-
-                }
-                sb.append("</div>");
-                sb.append("</div>");
-
-                sb.append("</body></html>");
-                groupDetail = sb.toString();
             }
         }
 
@@ -634,40 +665,7 @@ public class GroupViewActivity extends Activity {
                 //to do here
             }
 
-            ;
         }.execute(null, null, null);
     }
 
-    private class ListArrayAdapter extends ArrayAdapter {
-
-        private int count;
-
-        public ListArrayAdapter(Context context, int resource, int count) {
-            super(context, resource);
-            setNotifyOnChange(true);
-            this.count = count;
-        }
-
-        @Override
-        public int getCount() {
-            return count;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-
-            if (convertView == null) {
-                convertView = View.inflate(getContext(), R.layout.group_list_element, null);
-            }
-
-            TextView name = (TextView) convertView.findViewById(R.id.group_name);
-            TextView date = (TextView) convertView.findViewById(R.id.group_date);
-            TextView description = (TextView) convertView.findViewById(R.id.group_description);
-            TextView title = (TextView) convertView.findViewById(R.id.group_title);
-            TextView circle = (TextView) convertView.findViewById(R.id.text_circle);
-
-            return convertView;
-        }
-
-    }
 }
