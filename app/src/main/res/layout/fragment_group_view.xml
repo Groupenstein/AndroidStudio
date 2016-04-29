@@ -1,284 +1,294 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_white"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".GroupView$PlaceholderFragment">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/section_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/black" />
+        android:layout_height="match_parent"
+        android:background="@color/background_white">
 
         <RelativeLayout
-            android:id="@+id/text_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/group_name_circle"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:background="@drawable/circle"
-                android:gravity="center"
-                android:textColor="@color/white"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/txtGroupName"
+                android:id="@+id/section_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="24dp"
-                android:layout_toRightOf="@+id/group_name_circle"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/black" />
+
+            <RelativeLayout
+                android:id="@+id/text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/group_name_circle"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/circle"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/txtGroupName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="24dp"
+                    android:layout_toRightOf="@+id/group_name_circle"
+                    android:gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/recent_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="Recent Messages"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/message_count"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/count_circle"
+                        android:gravity="center"
+                        android:textColor="@color/white" />
+
+                    <View
+                        android:id="@+id/tag_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tag"
+                        android:background="@color/divider_grey" />
+
+                    <TextView
+                        android:id="@+id/recent_no_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tag_line"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="No Recent Messages"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/recent_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tag_line"
+                        android:orientation="vertical" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/upcoming_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recent_card"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp">
+
+                    <TextView
+                        android:id="@+id/up_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="Upcoming Events"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/upcoming_message_count"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/count_circle"
+                        android:gravity="center"
+                        android:textColor="@color/white" />
+
+                    <View
+                        android:id="@+id/up_tag_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/up_tag"
+                        android:background="@color/divider_grey" />
+
+                    <TextView
+                        android:id="@+id/upcoming_no_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/up_tag_line"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="No Upcoming Events"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/upcoming_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/up_tag_line"
+                        android:orientation="vertical" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/messages_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_layout"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Messages"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_grey" />
+
+                    <TextView
+                        android:id="@+id/your_no_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="No messages for this group"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/message_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/events_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/messages_card"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Events"
+                        android:textSize="20sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/divider_grey" />
+
+                    <TextView
+                        android:id="@+id/your_events_no_messages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:gravity="center"
+                        android:text="No events for this group"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/events_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
 
         </RelativeLayout>
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/recent_card"
-            android:layout_width="match_parent"
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/buttonSendMsg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/circle">
+
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@color/white">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp">
-
-                <TextView
-                    android:id="@+id/tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:text="Recent Messages"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/message_count"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/count_circle"
-                    android:gravity="center"
-                    android:textColor="@color/white" />
-
-                <View
-                    android:id="@+id/tag_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/tag"
-                    android:background="@color/divider_grey" />
-
-                <TextView
-                    android:id="@+id/recent_no_messages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tag_line"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:text="No Recent Messages"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/recent_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tag_line"
-                    android:orientation="vertical" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/upcoming_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/recent_card"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp">
-
-                <TextView
-                    android:id="@+id/up_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:text="Upcoming Events"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/upcoming_message_count"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/count_circle"
-                    android:gravity="center"
-                    android:textColor="@color/white" />
-
-                <View
-                    android:id="@+id/up_tag_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/up_tag"
-                    android:background="@color/divider_grey" />
-
-                <TextView
-                    android:id="@+id/upcoming_no_messages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/up_tag_line"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:text="No Upcoming Events"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/upcoming_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/up_tag_line"
-                    android:orientation="vertical" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/messages_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text_layout"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your Messages"
-                    android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_grey" />
-
-                <TextView
-                    android:id="@+id/your_no_messages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:text="No messages for this group"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/message_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/events_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/messages_card"
-            android:layout_marginTop="16dp"
-            android:background="@color/white"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Your Events"
-                    android:textSize="20sp" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/divider_grey" />
-
-                <TextView
-                    android:id="@+id/your_events_no_messages"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:gravity="center"
-                    android:text="No events for this group"
-                    android:textSize="18sp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/events_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <Button
-            android:id="@+id/buttonSendMsg"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/events_card"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/primarybutton"
-            android:text="New Message"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_mail_white_24dp" />
 
     </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>

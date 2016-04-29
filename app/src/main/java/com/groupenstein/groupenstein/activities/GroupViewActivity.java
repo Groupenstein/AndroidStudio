@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -344,7 +343,7 @@ public class GroupViewActivity extends Activity {
                 groupNameTextIcon.setVisibility(View.VISIBLE);
             }
 
-            Button createMessage = (Button) rootView.findViewById(R.id.buttonSendMsg);
+            RelativeLayout createMessage = (RelativeLayout) rootView.findViewById(R.id.buttonSendMsg);
 
             if (isMessageAdmin) {
                 createMessage.setOnClickListener(new CreateMessageClickListener(arrayIndex));
